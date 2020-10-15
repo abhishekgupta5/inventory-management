@@ -2,6 +2,15 @@
 
 This is a Ruby on Rails web application for inventory management.
 
+## Interview Prompts
+
+This application can be used as a baseline Ruby on Rails application for
+feature development as evaluation criteria during technical interviews.
+
+* [Tech lead prompts]
+
+[Tech lead prompts]: ./TECH_LEAD_PROMPTS.md
+
 ## Local Development
 
 You'll want to configure your machine to run:
