@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_22_173602) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_23_165249) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,13 +89,4 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_22_173602) do
   add_foreign_key "inventory_status_changes", "employees", column: "actor_id"
   add_foreign_key "inventory_status_changes", "inventories"
   add_foreign_key "orders", "addresses", column: "ships_to_id"
-
-  create_view "product_on_shelf_quantities", sql_definition: <<-SQL
-      SELECT p.id AS product_id,
-      count(i.product_id) AS quantity
-     FROM (products p
-       LEFT JOIN inventories i ON (((p.id = i.product_id) AND (i.status = 'on_shelf'::inventory_statuses))))
-    GROUP BY p.id
-    ORDER BY p.id;
-  SQL
 end
