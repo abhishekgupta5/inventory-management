@@ -11,11 +11,15 @@ RSpec.describe FindFulfillableOrder do
 
     expect(Order.fulfilled).to be_empty
 
-    FindFulfillableOrder.begin_fulfillment(employee)
+    expect do
+      FindFulfillableOrder.begin_fulfillment(employee)
+    end.to change { product.reload.on_shelf }.from(5).to(3)
 
     expect(Order.fulfilled).to match_array([order])
 
-    FindFulfillableOrder.begin_fulfillment(employee)
+    expect do
+      FindFulfillableOrder.begin_fulfillment(employee)
+    end.to change { product.reload.on_shelf }.from(3).to(1)
 
     expect(Order.fulfilled).to match_array([order, second_order])
 
