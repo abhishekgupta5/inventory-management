@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   validates :name, presence: true
+  validates :on_shelf, presence: true
   monetize :price_cents
   has_many :inventory
 
