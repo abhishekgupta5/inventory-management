@@ -6,19 +6,19 @@ class Order < ApplicationRecord
   scope :recent, -> { order(created_at: :desc) }
   scope :fulfilled, -> { joins(:inventories).group('orders.id') }
   scope :not_fulfilled, -> { left_joins(:inventories).where(inventories: { order_id: nil }) }
+
   scope :fulfillable, lambda {
     not_fulfilled
       .joins(:line_items)
       .joins(<<~SQL)
-        LEFT OUTER JOIN product_on_shelf_quantities
-          ON order_line_items.product_id = product_on_shelf_quantities.product_id
-         AND order_line_items.quantity <= product_on_shelf_quantities.quantity
-      SQL
+        LEFT OUTER JOIN products
+        ON order_line_items.product_id = products.id
+    SQL
       .group(:id)
       .having(<<~SQL)
-        COUNT(DISTINCT product_on_shelf_quantities.product_id) =
-        COUNT(DISTINCT order_line_items.product_id)
-      SQL
+        COUNT(DISTINCT order_line_items.product_id) =
+        SUM(CASE WHEN order_line_items.quantity <= products.on_shelf THEN 1 ELSE 0 END)
+    SQL
       .order(:created_at, :id)
   }
 

@@ -11,9 +11,7 @@ class Product < ApplicationRecord
   def needed_inventory_count
     self.class.connection.select_value(<<~SQL)
       SELECT GREATEST(
-        SUM(order_line_items.quantity) - (
-          SELECT quantity FROM product_on_shelf_quantities WHERE product_id = #{id}
-        ), 0)
+        SUM(order_line_items.quantity) - #{on_shelf}, 0)
       FROM order_line_items
         LEFT OUTER JOIN inventories
           ON order_line_items.order_id = inventories.order_id
