@@ -14,6 +14,7 @@ class ReceiveProduct
       quantity.times do
         create_inventory
       end
+      product.increment!(:on_shelf, quantity)
     end
   end
 
