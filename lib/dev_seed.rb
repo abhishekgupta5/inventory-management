@@ -15,13 +15,21 @@ class DevSeed
 
   COLORS = %w[Gold Silver Bronze].freeze
 
-  EMPLOYEES = {
+  WAREHOUSE_EMPLOYEES = {
     'Serafina Makarova' => '10000',
     'Izzet Ayhan' => '10001',
     'Beatriz Arroyo' => '10002',
     'Azizi Soyinka' => '10003',
     'Rafi Yousef' => '10004',
     'Erin McDonnell' => '10005'
+  }.freeze
+
+  CUSTOMER_SERVICE_EMPLOYEES = {
+    'Luke Skywalker' => '10006',
+    'Yoda' => '10007',
+    'Darth Vader' => '10008',
+    'Han Solo' => '10009',
+    'Obi-Wan Kenobi' => '10010'
   }.freeze
 
   def self.run
@@ -76,19 +84,23 @@ class DevSeed
   private
 
   def create_employees
-    EMPLOYEES.each do |name, access_code|
-      Employee.create!(name:, access_code:)
+    WAREHOUSE_EMPLOYEES.each do |name, access_code|
+      Employee.create!(name:, access_code:, role: 'warehouse')
+    end
+
+    CUSTOMER_SERVICE_EMPLOYEES.each do |name, access_code|
+      Employee.create!(name:, access_code:, role: 'customer_service')
     end
   end
 
   def create_inventory
     RECEIVED_PRODUCT_COUNT.times do
-      ReceiveProduct.run(random_employee, random_product, RECEIVED_PRODUCT_INVENTORY_COUNT)
+      ReceiveProduct.run(random_warehouse_employee, random_product, RECEIVED_PRODUCT_INVENTORY_COUNT)
     end
   end
 
-  def random_employee
-    Employee.order('RANDOM()').first
+  def random_warehouse_employee
+    Employee.warehouse.order('RANDOM()').first
   end
 
   def random_product
@@ -97,7 +109,7 @@ class DevSeed
 
   def ship_in_stock_inventory
     while (order = Order.fulfillable.first)
-      FindFulfillableOrder.fulfill_order(random_employee, order.id)
+      FindFulfillableOrder.fulfill_order(random_warehouse_employee, order.id)
     end
   end
 

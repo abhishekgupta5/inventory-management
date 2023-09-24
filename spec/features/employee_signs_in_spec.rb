@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Employee signs in' do
   scenario 'unsuccessfully at first' do
-    create(:employee, name: 'Jane Doe', access_code: '41315')
+    employee = create(:employee, :warehouse, name: 'Jane Doe', access_code: '41315')
 
     visit root_path
     click_on sign_in
@@ -13,11 +13,11 @@ RSpec.feature 'Employee signs in' do
     attempt_code('41315')
 
     expect(page).to display_employee_portal
-    expect(page).to welcome_employee('Jane Doe')
+    expect(page).to welcome_employee('Jane Doe', employee.role.humanize)
   end
 
   scenario 'and then signs out' do
-    create(:employee, name: 'Jane Doe', access_code: '41315')
+    create(:employee, :warehouse, name: 'Jane Doe', access_code: '41315')
 
     visit root_path
     click_on sign_in
@@ -49,7 +49,7 @@ RSpec.feature 'Employee signs in' do
     have_css('.employees__header', text: I18n.t('employees.index.title'))
   end
 
-  def welcome_employee(name)
-    have_css('.employees__welcome', text: I18n.t('employees.index.welcome', name:))
+  def welcome_employee(name, role)
+    have_css('.employees__welcome', text: I18n.t('employees.index.welcome', name:, role:))
   end
 end
