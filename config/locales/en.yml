@@ -13,6 +13,12 @@ en:
           on_shelf: "%{count} on shelf"
           product: Product
           quantity: Receive Quantity
+      receive_returned_product:
+        header: Receive Returned Product
+        table:
+          place_on_shelf: Quantity of returned products
+          on_shelf: "%{count} on shelf"
+          returned: "%{count} returned (available to place on shelf)"
       recent_orders:
         header: Recent Orders
       title: Employee Portal
@@ -26,6 +32,8 @@ en:
     submit:
       receive_product:
         submit: Receive
+      receive_return_product:
+        submit: Move To Shelf
       session:
         submit: Sign in
   layouts:
@@ -42,6 +50,7 @@ en:
   orders:
     show:
       fulfill_order: Fulfill order
+      mark_as_returned: Mark as returned
       order:
         fulfilled: Order has been fulfilled
         returned: Order has been returned

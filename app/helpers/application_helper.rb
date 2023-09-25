@@ -55,4 +55,12 @@ module ApplicationHelper
       'bg-gray-500 text-gray-300 cursor-not-allowed'
     end
   end
+
+  def return_order_button_class(order)
+    if order.fulfilled?
+      'bg-pink-600 text-white'
+    else
+      'bg-gray-500 text-gray-300 cursor-not-allowed'
+    end
+  end
 end
