@@ -4,6 +4,7 @@ class EmployeesController < ApplicationController
   def index
     @fulfillable_orders = Order.fulfillable.limit(10)
     @recent_orders = Order.recent.limit(10)
+    @returned_orders = Order.returned.limit(10)
     @products = Product.order(:id)
   end
 end
