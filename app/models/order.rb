@@ -1,14 +1,18 @@
 class Order < ApplicationRecord
+  enum state: {
+    in_progress: 'in_progress',
+    fulfilled: 'fulfilled',
+    returned: 'returned'
+  }
+
   belongs_to :ships_to, class_name: 'Address'
   has_many :line_items, class_name: 'OrderLineItem'
   has_many :inventories
 
   scope :recent, -> { order(created_at: :desc) }
-  scope :fulfilled, -> { joins(:inventories).group('orders.id') }
-  scope :not_fulfilled, -> { left_joins(:inventories).where(inventories: { order_id: nil }) }
 
   scope :fulfillable, lambda {
-    not_fulfilled
+    in_progress
       .joins(:line_items)
       .joins(<<~SQL)
         LEFT OUTER JOIN products
@@ -26,10 +30,6 @@ class Order < ApplicationRecord
     line_items.inject(Money.zero) do |acc, li|
       acc + li.cost
     end
-  end
-
-  def fulfilled?
-    inventories.any?
   end
 
   # BUG: With the original code, an order with no line item will also be
@@ -57,6 +57,6 @@ class Order < ApplicationRecord
   #   end
   # end
   def fulfillable?
-    line_items.present? && line_items.all?(&:fulfillable?)
+    in_progress? && line_items.present? && line_items.all?(&:fulfillable?)
   end
 end

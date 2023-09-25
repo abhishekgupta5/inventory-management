@@ -35,7 +35,7 @@ module ApplicationHelper
   end
 
   def line_item_fulfillable_class(order, line_item)
-    if !order.fulfilled?
+    if order.in_progress?
       if line_item.fulfillable?
         'bg-green-100 text-green-800'
       else
