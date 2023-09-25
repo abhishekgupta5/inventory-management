@@ -12,5 +12,6 @@ Rails.application.routes.draw do
 
   resources :products do
     resource :receive, only: [:create]
+    resource :receive_return, only: [:create]
   end
 end

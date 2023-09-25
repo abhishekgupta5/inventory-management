@@ -1,11 +1,32 @@
 ---
 en:
+  addresses:
+    edit:
+      address:
+        header: 'Address #%{id}'
+    show:
+      address:
+        city: City
+        current_address: Current Address
+        header: 'Address #%{id}'
+        recipient: Recipient
+        state: State
+        street1: Street 1
+        street2: Street 2
+        zip: Zipcode
   employees:
+    customer_service:
+      returned_customers:
+        header: Customer addresses to be fixed
+        no_address_to_fix: No addresses to be fixed
+        table:
+          recipient: Recipient
     index:
+      title: Employee Portal
+      welcome: Welcome, %{name} (%{role})
+    warehouse:
       fulfillable_orders:
         header: Fulfillable Orders
-      returned_orders:
-        header: Returned Orders
       receive_product:
         header: Receive New Product
         table:
@@ -13,10 +34,16 @@ en:
           on_shelf: "%{count} on shelf"
           product: Product
           quantity: Receive Quantity
+      receive_returned_product:
+        header: Receive Returned Product
+        table:
+          on_shelf: "%{count} on shelf"
+          place_on_shelf: Quantity of returned products
+          returned: "%{count} returned (available to place on shelf)"
       recent_orders:
         header: Recent Orders
-      title: Employee Portal
-      welcome: Welcome, %{name}
+      returned_orders:
+        header: Returned Orders
   helpers:
     label:
       receive_product:
@@ -26,6 +53,8 @@ en:
     submit:
       receive_product:
         submit: Receive
+      receive_return_product:
+        submit: Move To Shelf
       session:
         submit: Sign in
   layouts:
@@ -45,8 +74,8 @@ en:
       mark_as_returned: Mark as returned
       order:
         fulfilled: Order has been fulfilled
-        returned: Order has been returned
         header: 'Order ID #%{id}'
+        returned: Order has been returned
       product_table:
         on_shelf: "%{count} on shelf"
         order_total: Order total
