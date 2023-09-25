@@ -43,6 +43,7 @@ class DevSeed
     create_inventory
     create_orders
     ship_in_stock_inventory
+    return_some_orders
   end
 
   def create_order(address)
@@ -110,6 +111,12 @@ class DevSeed
   def ship_in_stock_inventory
     while (order = Order.fulfillable.first)
       FindFulfillableOrder.fulfill_order(random_warehouse_employee, order.id)
+    end
+  end
+
+  def return_some_orders
+    Order.fulfilled.take(2).each do |order|
+      FindReturnableOrder.return_order(random_warehouse_employee, order.id)
     end
   end
 

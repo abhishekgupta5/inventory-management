@@ -19,6 +19,8 @@ module ApplicationHelper
       t('order.fulfilled')
     elsif order.fulfillable?
       t('order.fulfillable')
+    elsif order.returned?
+      t('order.returned')
     else
       t('order.unfulfillable')
     end
@@ -27,6 +29,8 @@ module ApplicationHelper
   def order_status_class(order)
     if order.fulfilled?
       'bg-green-200 text-green-800'
+    elsif order.returned?
+      'bg-pink-200 text-pink-800'
     elsif order.fulfillable?
       'bg-yellow-200 text-yellow-800'
     else
