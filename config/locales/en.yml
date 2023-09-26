@@ -2,6 +2,9 @@
 en:
   employees:
     index:
+      title: Employee Portal
+      welcome: Welcome, %{name} (%{role})
+    warehouse:
       fulfillable_orders:
         header: Fulfillable Orders
       returned_orders:
@@ -21,8 +24,13 @@ en:
           returned: "%{count} returned (available to place on shelf)"
       recent_orders:
         header: Recent Orders
-      title: Employee Portal
-      welcome: Welcome, %{name}
+    customer_service:
+      returned_customers:
+        header: Customers who returned orders
+        table:
+          recipient: Recipient
+      recent_orders:
+        header: Recent Orders
   helpers:
     label:
       receive_product:
@@ -47,6 +55,20 @@ en:
     fulfilled: Fulfilled
     returned: Returned
     unfulfillable: Unfulfillable
+  addresses:
+    show:
+      address:
+        header: 'Address #%{id}'
+        current_address: Current Address
+        recipient: Recipient
+        street1: Street 1
+        street2: Street 2
+        city: City
+        state: State
+        zip: Zipcode
+    edit:
+      address:
+        header: 'Address #%{id}'
   orders:
     show:
       fulfill_order: Fulfill order

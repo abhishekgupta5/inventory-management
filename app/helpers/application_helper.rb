@@ -63,4 +63,14 @@ module ApplicationHelper
       'bg-gray-500 text-gray-300 cursor-not-allowed'
     end
   end
+
+  def address_update_notice_class(type)
+    if type == 'notice'
+      'bg-green-200 text-green-700 p-2 rounded-lg mt-4'
+    elsif type == 'alert'
+      'bg-red-200 text-red-700 p-2 rounded-lg mt-4'
+    else
+      'bg-yellow-200 text-yellow-700 p-2 rounded-lg mt-4'
+    end
+  end
 end

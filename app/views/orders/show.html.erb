@@ -61,13 +61,15 @@
       </table>
     </div>
 
-    <% if @order.in_progress? %>
-      <%= button_to order_fulfill_path(@order), method: :post, class: "w-full p-4 text-2xl #{fulfill_order_button_class(@order)}", disabled: !@order.fulfillable? do %>
-        <%= t '.fulfill_order' %>
-      <% end %>
-    <% else %>
-      <%= button_to order_return_path(@order), method: :post, class: "w-full p-4 text-2xl #{return_order_button_class(@order)}" do %>
-        <%= t '.mark_as_returned' %>
+    <% if current_user.warehouse? %>
+      <% if @order.in_progress? %>
+        <%= button_to order_fulfill_path(@order), method: :post, class: "w-full p-4 text-2xl #{fulfill_order_button_class(@order)}", disabled: !@order.fulfillable? do %>
+          <%= t '.fulfill_order' %>
+        <% end %>
+      <% else %>
+        <%= button_to order_return_path(@order), method: :post, class: "w-full p-4 text-2xl #{return_order_button_class(@order)}" do %>
+          <%= t '.mark_as_returned' %>
+        <% end %>
       <% end %>
     <% end %>
   </div>

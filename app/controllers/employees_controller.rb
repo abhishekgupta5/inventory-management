@@ -7,5 +7,6 @@ class EmployeesController < ApplicationController
     @returned_orders = Order.returned.limit(10)
     @products = Product.order(:id)
     @returned_products_inventory_map = Product.returned_products_inventory_map
+    @returned_addresses = Address.all_returned_customers.limit(10)
   end
 end
