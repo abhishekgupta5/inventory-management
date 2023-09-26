@@ -28,6 +28,8 @@ class DevSeed
     'Luke Skywalker' => '10006',
     'Yoda' => '10007',
     'Darth Vader' => '10008',
+    'Han Solo' => '10009',
+    'Obi-Wan Kenobi' => '10010'
   }.freeze
 
   def self.run
@@ -41,6 +43,7 @@ class DevSeed
     create_inventory
     create_orders
     ship_in_stock_inventory
+    return_some_orders
   end
 
   def create_order(address)
@@ -93,12 +96,12 @@ class DevSeed
 
   def create_inventory
     RECEIVED_PRODUCT_COUNT.times do
-      ReceiveProduct.run(random_employee, random_product, RECEIVED_PRODUCT_INVENTORY_COUNT)
+      ReceiveProduct.run(random_warehouse_employee, random_product, RECEIVED_PRODUCT_INVENTORY_COUNT)
     end
   end
 
-  def random_employee
-    Employee.order('RANDOM()').first
+  def random_warehouse_employee
+    Employee.warehouse.order('RANDOM()').first
   end
 
   def random_product
@@ -107,7 +110,13 @@ class DevSeed
 
   def ship_in_stock_inventory
     while (order = Order.fulfillable.first)
-      FindFulfillableOrder.fulfill_order(random_employee, order.id)
+      FindFulfillableOrder.fulfill_order(random_warehouse_employee, order.id)
+    end
+  end
+
+  def return_some_orders
+    Order.fulfilled.take(2).each do |order|
+      FindReturnableOrder.return_order(random_warehouse_employee, order.id)
     end
   end
 
