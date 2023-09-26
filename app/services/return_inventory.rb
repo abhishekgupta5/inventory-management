@@ -15,6 +15,7 @@ class ReturnInventory
         return_inventory(inventory)
       end
       order.returned!
+      order.ships_to.update!(fixed: false)
     end
   end
 

@@ -23,6 +23,8 @@ RSpec.describe FindReturnableOrder do
       end.to change { order.reload.state }.from('fulfilled').to('returned')
       # Ensure that inventories are returned and disassociated with the order
       expect(Inventory.where(id: order_inventory_ids, order: nil).pluck(:status).uniq).to eq(['returned'])
+      # Address should be marked as not fixed
+      expect(order.ships_to.fixed).to be_falsey
     end
   end
 end

@@ -11,7 +11,7 @@ class AddressesController < ApplicationController
 
   def update
     @address = Address.find(params[:id])
-    if @address.update(address_params)
+    if @address.update({ fixed: true }.merge(address_params))
       redirect_to @address, notice: 'Address was successfully updated.'
     else
       flash[:alert] = 'Address could not be updated due to errors.'
