@@ -26,7 +26,8 @@ en:
         header: Recent Orders
     customer_service:
       returned_customers:
-        header: Customers who returned orders
+        header: Customer addresses to be fixed
+        no_address_to_fix: No addresses to be fixed
         table:
           recipient: Recipient
       recent_orders:
