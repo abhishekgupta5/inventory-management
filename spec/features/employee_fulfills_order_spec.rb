@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Employee fulfills order' do
   scenario 'successfully' do
     product = create(:product)
-    employee = create(:employee, name: 'Jane Doe', access_code: '41315')
+    employee = create(:employee, :warehouse, name: 'Jane Doe', access_code: '41315')
     ReceiveProduct.run(employee, product, 10)
     order = create(:order)
     create(:order_line_item, order:, product:, quantity: 5)
@@ -19,5 +19,6 @@ RSpec.feature 'Employee fulfills order' do
 
     view_order(order)
     expect(page).not_to allow_fulfillment
+    expect(page).to allow_return
   end
 end

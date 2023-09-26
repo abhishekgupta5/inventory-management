@@ -20,7 +20,11 @@ module OrdersHelper
   end
 
   def allow_fulfillment
-    have_css('button:not(:disabled)')
+    have_css('button#fulfill_order_button:not(:disabled)')
+  end
+
+  def allow_return
+    have_css('button', text: I18n.t('orders.show.mark_as_returned'))
   end
 end
 

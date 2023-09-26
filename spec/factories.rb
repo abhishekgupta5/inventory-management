@@ -20,6 +20,12 @@ FactoryBot.define do
   factory :employee do
     sequence(:name) { |n| "Employee ##{n}" }
     sequence(:access_code) { |n| format('%05d', n) }
+    trait :warehouse do
+      role { :warehouse }
+    end
+    trait :customer_service do
+      role { :customer_service }
+    end
   end
 
   factory :product do
