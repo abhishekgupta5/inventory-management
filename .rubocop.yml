@@ -36,3 +36,5 @@ Metrics/AbcSize:
   AllowedMethods: ['arel']
 Naming/VariableNumber:
   EnforcedStyle: snake_case
+Metrics/ClassLength:
+  CountAsOne: ['array', 'method_call']
