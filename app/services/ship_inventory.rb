@@ -16,6 +16,7 @@ class ShipInventory
         ship_inventory(inventory)
       end
       line_item.product.decrement!(:on_shelf, line_item.quantity)
+      order.fulfilled!
     end
   end
 

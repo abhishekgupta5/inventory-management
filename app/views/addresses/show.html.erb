@@ -1,0 +1,44 @@
+<%= employee_breadcrumb do %>
+  <%= t '.address.header', id: @address.id %>
+<% end %>
+
+<div class="flex flex-wrap">
+  <div class="md:w-1/3 p-4 bg-white rounded-lg shadow-lg">
+    <h3 class="text-2xl font-semibold pb-4"><%= t('.address.current_address') %></h3>
+    <div class="mb-2">
+      <p><strong class="font-semibold"><%= t('.address.recipient') %>:</strong> <%= @address.recipient %></p>
+    </div>
+    <div class="mb-2">
+      <p><strong class="font-semibold"><%= t('.address.street1') %>:</strong> <%= @address.street_1 %></p>
+    </div>
+    <div class="mb-2">
+      <p><strong class="font-semibold"><%= t('.address.street2') %>:</strong> <%= @address.street_2 %></p>
+    </div>
+    <div class="mb-2">
+      <p><strong class="font-semibold"><%= t('.address.city') %>:</strong> <%= @address.city %></p>
+    </div>
+    <div class="mb-2">
+      <p><strong class="font-semibold"><%= t('.address.state') %>:</strong> <%= @address.state %></p>
+    </div>
+    <div class="mb-2">
+      <p><strong class="font-semibold"><%= t('.address.zip') %>:</strong> <%= @address.zip %></p>
+    </div>
+  </div>
+</div>
+
+<div class="mt-4">
+  <% if current_user.customer_service? %>
+  <%= link_to 'Edit', edit_address_path(@address), class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg cursor-pointer mr-2" %>
+  <% end %>
+  <%= link_to 'Back', employees_path, class: "text-gray-500 hover:text-gray-700 font-semibold" %>
+</div>
+
+<% if flash[:notice].present? %>
+  <div class="<%= address_update_notice_class('notice') %>">
+    <%= flash[:notice] %>
+  </div>
+  <% elsif flash[:alert].present? %>
+  <div class="<%= address_update_notice_class('alert') %>">
+    <%= flash[:alert] %>
+  </div>
+<% end %>

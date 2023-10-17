@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_23_165249) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_26_091359) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "inventory_statuses", ["on_shelf", "shipped"]
+  create_enum "inventory_statuses", ["on_shelf", "shipped", "returned"]
+  create_enum "order_states", ["in_progress", "fulfilled", "returned"]
+  create_enum "roles", ["warehouse", "customer_service"]
 
   create_table "addresses", force: :cascade do |t|
     t.string "recipient", null: false
@@ -25,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_165249) do
     t.string "city", null: false
     t.string "state", null: false
     t.string "zip", null: false
+    t.boolean "fixed", default: true
+    t.index ["fixed"], name: "index_addresses_on_fixed"
   end
 
   create_table "employees", force: :cascade do |t|
@@ -32,7 +36,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_165249) do
     t.string "access_code", limit: 5, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "role", enum_type: "roles"
     t.index ["access_code"], name: "index_employees_on_access_code", unique: true
+    t.index ["role"], name: "index_employees_on_role"
   end
 
   create_table "inventories", force: :cascade do |t|
@@ -70,7 +76,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_23_165249) do
     t.bigint "ships_to_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.enum "state", default: "in_progress", null: false, enum_type: "order_states"
     t.index ["ships_to_id"], name: "index_orders_on_ships_to_id"
+    t.index ["state"], name: "index_orders_on_state"
   end
 
   create_table "products", force: :cascade do |t|

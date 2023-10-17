@@ -4,6 +4,10 @@ class Product < ApplicationRecord
   monetize :price_cents
   has_many :inventory
 
+  def self.returned_products_inventory_map
+    Inventory.returned.group(:product).count
+  end
+
   def in_stock_count
     inventory.on_shelf.count
   end

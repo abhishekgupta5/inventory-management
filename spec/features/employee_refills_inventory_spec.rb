@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.feature 'Employee refills inventory' do
   scenario 'successfully' do
     product = create(:product)
-    employee = create(:employee, name: 'Jane Doe', access_code: '41315')
+    employee = create(:employee, :warehouse, name: 'Jane Doe', access_code: '41315')
     ReceiveProduct.run(employee, product, 5)
     order = create(:order)
     create(:order_line_item, order:, product:, quantity: 25)

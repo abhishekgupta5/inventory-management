@@ -19,6 +19,8 @@ module ApplicationHelper
       t('order.fulfilled')
     elsif order.fulfillable?
       t('order.fulfillable')
+    elsif order.returned?
+      t('order.returned')
     else
       t('order.unfulfillable')
     end
@@ -27,6 +29,8 @@ module ApplicationHelper
   def order_status_class(order)
     if order.fulfilled?
       'bg-green-200 text-green-800'
+    elsif order.returned?
+      'bg-pink-200 text-pink-800'
     elsif order.fulfillable?
       'bg-yellow-200 text-yellow-800'
     else
@@ -35,7 +39,7 @@ module ApplicationHelper
   end
 
   def line_item_fulfillable_class(order, line_item)
-    if !order.fulfilled?
+    if order.in_progress?
       if line_item.fulfillable?
         'bg-green-100 text-green-800'
       else
@@ -49,6 +53,24 @@ module ApplicationHelper
       'bg-teal-600 text-white'
     else
       'bg-gray-500 text-gray-300 cursor-not-allowed'
+    end
+  end
+
+  def return_order_button_class(order)
+    if order.fulfilled?
+      'bg-pink-600 text-white'
+    else
+      'bg-gray-500 text-gray-300 cursor-not-allowed'
+    end
+  end
+
+  def address_update_notice_class(type)
+    if type == 'notice'
+      'bg-green-200 text-green-700 p-2 rounded-lg mt-4'
+    elsif type == 'alert'
+      'bg-red-200 text-red-700 p-2 rounded-lg mt-4'
+    else
+      'bg-yellow-200 text-yellow-700 p-2 rounded-lg mt-4'
     end
   end
 end
