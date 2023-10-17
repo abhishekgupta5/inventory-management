@@ -32,7 +32,31 @@ class Order < ApplicationRecord
     inventories.any?
   end
 
+  # BUG: With the original code, an order with no line item will also be
+  # fulfillable while it shouldn't be
+
+  # Fix-1:
+  # We can have a presence check first and then only check line items.
+  # This fix has been implemented in the method below
+
+  # Fix-2:
+  # Another possible way to address this is to think about whether there can even
+  # be an order with no line item from a business/product perspective?
+  # In most eCommerce systems, an order is generally associated with at least 1 line item,
+  # then only it makes sense to call it an order and process it further.
+  # The way to technically implement this can be to add a custom validation for order
+  # Something like this -
+  #
+  # class Order ...
+  #   validate :at_least_one_line_item
+  #   private
+  #   def at_least_one_line_item
+  #     if line_items.blank?
+  #       errors.add(:order, "Order should have at least 1 line item")
+  #     end
+  #   end
+  # end
   def fulfillable?
-    line_items.all?(&:fulfillable?)
+    line_items.present? && line_items.all?(&:fulfillable?)
   end
 end
