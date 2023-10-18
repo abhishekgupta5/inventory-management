@@ -1,12 +1,13 @@
 class ShipInventory
-  def self.run(employee, inventory_items, order)
-    new(employee:, inventory_items:, order:).run
+  def self.run(employee, inventory_items, order, line_item)
+    new(employee:, inventory_items:, order:, line_item:).run
   end
 
-  def initialize(employee:, inventory_items:, order:)
+  def initialize(employee:, inventory_items:, order:, line_item:)
     @employee = employee
     @inventory_items = inventory_items
     @order = order
+    @line_item = line_item
   end
 
   def run
@@ -14,12 +15,13 @@ class ShipInventory
       inventory_items.each do |inventory|
         ship_inventory(inventory)
       end
+      line_item.product.decrement!(:on_shelf, line_item.quantity)
     end
   end
 
   private
 
-  attr_reader :employee, :inventory_items, :order
+  attr_reader :employee, :inventory_items, :order, :line_item
 
   def ship_inventory(inventory)
     inventory.with_lock do

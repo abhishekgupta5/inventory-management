@@ -11,7 +11,7 @@ class FindFulfillableOrder
     if order
       order.line_items.each do |line_item|
         inventory_items = Inventory.on_shelf.where(product: line_item.product).limit(line_item.quantity)
-        ShipInventory.run(employee, inventory_items, order)
+        ShipInventory.run(employee, inventory_items, order, line_item)
       end
     end
   end

@@ -41,7 +41,7 @@ RSpec.describe Product do
 
       create(:order_line_item, order: other_order, product:, quantity: 1)
       create(:order_line_item, order: other_order, product: other_product, quantity: quantity + 1)
-      expect(product.needed_inventory_count).to eq(1)
+      expect(product.reload.needed_inventory_count).to eq(1)
       expect(other_product.needed_inventory_count).to eq(1)
     end
   end
