@@ -13,9 +13,9 @@
 
 | **Type**    | **Description**             | **Issue Link**                                                                                                                              | **PR Link**                                                              |
 | ----------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Improvement | `on_shelf` counter cache    | [Issue link](https://github.com/abhishekgupta5/inventory-management/blob/main/TECH_LEAD_PROMPTS.md#on_shelf-counter-cache)                  | [PR link](https://github.com/abhishekgupta5/inventory-management/pull/1) |
-| BugFix      | `Order#fulfillable?`        | [Issue link](https://github.com/abhishekgupta5/inventory-management/blob/main/TECH_LEAD_PROMPTS.md#orderfulfillable-needs-a-fix)            | [PR link](https://github.com/abhishekgupta5/inventory-management/pull/2) |
-| Feature     | Handle Undeliverable Orders | [Issue link](https://github.com/abhishekgupta5/inventory-management/blob/main/TECH_LEAD_PROMPTS.md#new-feature-handle-undeliverable-orders) | [PR link](https://github.com/abhishekgupta5/inventory-management/pull/3) |
+| Improvement | `on_shelf` counter cache    | [Issue link](https://github.com/abhishekgupta5/inventory-management/blob/main/TECH_LEAD_PROMPTS.md#on_shelf-counter-cache)                  | [PR link](https://github.com/abhishekgupta5/inventory-management/pull/2) |
+| BugFix      | `Order#fulfillable?`        | [Issue link](https://github.com/abhishekgupta5/inventory-management/blob/main/TECH_LEAD_PROMPTS.md#orderfulfillable-needs-a-fix)            | [PR link](https://github.com/abhishekgupta5/inventory-management/pull/3) |
+| Feature     | Handle Undeliverable Orders | [Issue link](https://github.com/abhishekgupta5/inventory-management/blob/main/TECH_LEAD_PROMPTS.md#new-feature-handle-undeliverable-orders) | [PR link](https://github.com/abhishekgupta5/inventory-management/pull/4) |
 
 ### General principles followed
 
